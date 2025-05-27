@@ -11,12 +11,27 @@
   </head>
 
   <body>
+<body>
+  <header>
     <nav>
+      <%= link_to "Home", root_path %> |
       <%= link_to "All Books", books_path %> |
       <%= link_to "Rate a Book", new_reading_record_path %> |
-      <%= link_to "Recommendations", recommendations_path %>
+      <%= link_to "Recommendations", recommendations_path %> |
+
+      <% if session[:user_id] %>
+        Logged in as <%= User.find(session[:user_id]).name %> |
+        <%= link_to "Log Out", "/logout", method: :delete %>
+      <% else %>
+        <%= link_to "Sign Up", "/signup" %> |
+        <%= link_to "Log In", "/login" %>
+      <% end %>
     </nav>
-    <hr>
+  </header>
+
+  <% flash.each do |key, value| %>
+    <div class="flash <%= key %>"><%= value %></div>
+  <% end %>
 
     <%= yield %>
   </body>

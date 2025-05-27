@@ -16,5 +16,20 @@ class ReadingRecordsController < ApplicationController
       redirect_to new_reading_record_path, alert: "Something went wrong."
     end
   end
-end
 
+  def index
+    @genres = Book.distinct.pluck(:genre).compact.sort
+
+    @selected_genre = params[:genre]
+    @sort_order = params[:sort] == "rating" ? "DESC" : "created_at DESC"
+
+    @reading_records = ReadingRecord.includes(:user, :book)
+
+    if @selected_genre.present?
+      @reading_records = @reading_records.joins(:book).where(books: { genre: @selected_genre })
+    end
+
+    @reading_records = @reading_records.order("rating #{@sort_order}")
+  end
+
+end

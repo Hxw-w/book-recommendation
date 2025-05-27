@@ -1,0 +1,17 @@
+<h1>Log In</h1>
+
+<%= form_with(url: "/login", local: true) do |form| %>
+  <div>
+    <%= form.label :email %><br>
+    <%= form.email_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :password %><br>
+    <%= form.password_field :password %>
+  </div>
+
+  <%= form.submit "Log In" %>
+<% end %>
+
+<%= link_to "Don't have an account? Sign up", "/signup" %>

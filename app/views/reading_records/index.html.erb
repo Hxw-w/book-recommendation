@@ -1,0 +1,45 @@
+<h1>📚 Reading Records</h1>
+
+<!-- Filter & Sort Form -->
+<form method="get" action="/">
+  <label>Filter by Genre:</label>
+  <select name="genre">
+    <option value="">All</option>
+    <% @genres.each do |genre| %>
+      <option value="<%= genre %>" <%= "selected" if genre == @selected_genre %>><%= genre %></option>
+    <% end %>
+  </select>
+
+  <label>Sort:</label>
+  <select name="sort">
+    <option value="">Newest</option>
+    <option value="rating" <%= "selected" if params[:sort] == "rating" %>>Rating</option>
+  </select>
+
+  <button>Apply</button>
+</form>
+
+<hr>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Book</th>
+      <th>Genre</th>
+      <th>Rating</th>
+      <th>Comment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reading_records.each do |r| %>
+      <tr>
+        <td><%= r.user.name %></td>
+        <td><%= r.book.title %></td>
+        <td><%= r.book.genre %></td>
+        <td><%= r.rating %>★</td>
+        <td><%= truncate(r.comment, length: 60) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

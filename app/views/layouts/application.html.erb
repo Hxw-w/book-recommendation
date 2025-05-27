@@ -11,6 +11,13 @@
   </head>
 
   <body>
+    <nav>
+      <%= link_to "All Books", books_path %> |
+      <%= link_to "Rate a Book", new_reading_record_path %> |
+      <%= link_to "Recommendations", recommendations_path %>
+    </nav>
+    <hr>
+
     <%= yield %>
   </body>
 </html>

@@ -1,0 +1,14 @@
+<hr>
+<h2>📓 Recent Reader Activity</h2>
+<ul>
+  <% @recent_readings.each do |r| %>
+    <li>
+      <strong><%= r.user.name %></strong> rated
+      <em><%= r.book.title %></em> (<%= r.book.genre %>) —
+      <%= r.rating %>★
+      <% if r.comment.present? %>
+        — "<%= truncate(r.comment, length: 80) %>"
+      <% end %>
+    </li>re
+  <% end %>
+</ul>

@@ -12,5 +12,6 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :reading_records
-  validates :email, presence: true, uniqueness: true
+  has_many :books, through: :reading_records
 end
+

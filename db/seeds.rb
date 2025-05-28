@@ -32,15 +32,18 @@ Author.destroy_all
 end
 
 # Create Users
+# Create Users
 100.times do
   User.create!(
     name: Faker::Name.name,
-    email: Faker::Internet.email
+    email: Faker::Internet.email,
+    password: "password123",        # Add a default password
+    password_confirmation: "password123"
   )
 end
 
 # Create Reading Records
-500.times do
+50.times do
 ReadingRecord.create!(
   user_id: User.all.sample.id,
   book_id: Book.all.sample.id,

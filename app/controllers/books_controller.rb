@@ -1,9 +1,11 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.all
-    @recent_readings = ReadingRecord.includes(:book, :user).order(created_at: :desc).limit(10)
-  end
-
-  def show
+    @genre = params[:genre]
+    @sort = params[:sort]
+    
+    @books = Book.includes(:author, :reading_records)
+    @books = @books.where(genre: @genre) if @genre.present?
+    @books = @books.sort_by(&:average_rating).reverse if @sort == "rating"
   end
 end
+

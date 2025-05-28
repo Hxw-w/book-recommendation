@@ -4,7 +4,6 @@
 #
 #  id         :bigint           not null, primary key
 #  genre      :string
-#  rating     :integer
 #  title      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -21,4 +20,10 @@
 class Book < ApplicationRecord
   belongs_to :author
   has_many :reading_records
+  has_many :users, through: :reading_records
+
+  def average_rating
+    reading_records.average(:rating)&.round(2) || 0
+  end
+
 end

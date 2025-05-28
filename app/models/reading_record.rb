@@ -19,6 +19,7 @@
 #  fk_rails_...  (book_id => books.id)
 #
 class ReadingRecord < ApplicationRecord
-  belongs_to :book
   belongs_to :user
+  belongs_to :book
 end
+

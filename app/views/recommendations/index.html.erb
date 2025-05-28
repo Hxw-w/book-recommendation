@@ -1,17 +1,17 @@
 <h1>Book Recommendations</h1>
 
-<%= form_tag recommendations_path, method: :get do %>
-  <label for="genre">Choose a genre:</label>
-  <%= select_tag :genre, options_for_select(@genres, params[:genre]) %>
+<%= form_with url: recommendations_path, method: :get, local: true do %>
+  <label>Choose a genre:</label>
+  <%= select_tag :genre, options_for_select(Book.pluck(:genre).uniq, @genre), include_blank: true %>
   <%= submit_tag "Get Recommendations" %>
 <% end %>
 
-<% if @books.present? %>
-  <h2>Recommended Books</h2>
-  <ul>
-    <% @books.each do |book| %>
-      <li><strong><%= book.title %></strong> by <%= book.author.name %> – Rated <%= book.rating %>/5</li>
-    <% end %>
-  </ul>
-<% end %>
+<h2>Recommended Books</h2>
+<ul>
+  <% @recommended_books.each do |book| %>
+    <li>
+      <strong><%= book.title %></strong> by <%= book.author.name %> – Rated <%= book.average_rating.round(1) %>/5
+    </li>
+  <% end %>
+</ul>
 

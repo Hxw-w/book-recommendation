@@ -1,22 +1,20 @@
 <h1>Rate a Book</h1>
 
-<%= form_tag reading_records_path do %>
+<%= form_with model: @reading_record, local: true do |form| %>
   <div>
-    <label for="book_id">Book</label>
-    <%= select_tag :book_id, options_from_collection_for_select(@books, :id, :title) %>
+    <%= form.label :book_id, "Book" %>
+    <%= form.collection_select :book_id, @books, :id, :title %>
   </div>
 
   <div>
-    <label for="rating">Rating (1–5)</label>
-    <%= number_field_tag :rating, 5, min: 1, max: 5 %>
+    <%= form.label :rating, "Rating (1–5)" %>
+    <%= form.number_field :rating, in: 1..5 %>
   </div>
 
   <div>
-    <label for="comment">Comment</label>
-    <%= text_area_tag :comment %>
+    <%= form.label :comment, "Comment" %>
+    <%= form.text_area :comment %>
   </div>
 
-  <%= hidden_field_tag :user_id, 1 %> <!-- simulated user -->
-  <%= submit_tag "Submit Rating" %>
+  <%= form.submit "Submit Rating" %>
 <% end %>
-
